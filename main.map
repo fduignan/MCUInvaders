@@ -1,0 +1,321 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+TXBuffer            0x8c              serial.o
+RXBuffer            0x8c              serial.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x00000000         0x00008000
+ram              0x10000000         0x00002000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD init.o
+LOAD serial.o
+LOAD Pixel.o
+LOAD Sprite.o
+LOAD GameController.o
+LOAD spi.o
+LOAD main.o
+LOAD /usr/local/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/5.3.1/armv6-m/libgcc.a
+                0x00000000                . = ORIGIN (flash)
+
+.text           0x00000000     0x14dc
+ *(.vectors)
+ .vectors       0x00000000       0xc0 init.o
+                0x00000000                Vectors
+ *(.text)
+ .text          0x000000c0       0xcc init.o
+                0x000000c0                clock_init
+                0x0000010c                init
+                0x00000184                Default_Handler
+ .text          0x0000018c      0x368 serial.o
+                0x0000018c                initUART
+                0x0000027c                UART_isr
+                0x000002e8                putBuf
+                0x00000330                getBuf
+                0x00000384                rx_count
+                0x00000398                tx_count
+                0x000003ac                eputc
+                0x000003f8                egetc
+                0x00000410                printString
+                0x0000043c                HexDigit
+                0x0000047c                printInteger
+                0x000004dc                drainTX
+ .text          0x000004f4      0x534 Pixel.o
+                0x000004f4                delay_ms
+                0x0000051c                resetDisplay
+                0x00000550                CommandMode
+                0x00000570                DataMode
+                0x0000058c                LCD_Write_Cmd
+                0x000005b0                LCD_Write_Data
+                0x000005d4                gotoXY
+                0x00000684                initDisplay
+                0x00000748                putPixel
+                0x000007a8                putImage
+                0x00000870                fillRectangle
+                0x0000092c                putText
+ .text          0x00000a28      0x1bc Sprite.o
+                0x00000a28                initSprite
+                0x00000a7c                drawSprite
+                0x00000acc                showSprite
+                0x00000aec                hideSprite
+                0x00000b0c                moveSprite
+                0x00000b6c                withinSprite
+ .text          0x00000be4       0xb4 GameController.o
+                0x00000be4                initGameController
+                0x00000c1c                readGameController
+ .text          0x00000c98      0x26c spi.o
+                0x00000c98                initSPI
+                0x00000dc8                transferSPI
+                0x00000e00                transferMultiSPI
+                0x00000e9c                transferRawSPI
+ .text          0x00000f04      0x5d8 main.o
+                0x00000f04                delay
+                0x00000f20                Explode
+                0x00000f9c                blinky
+                0x00000ff4                main
+
+.rodata         0x000014dc      0x4c9
+ .rodata        0x000014dc      0x1e0 Pixel.o
+                0x000014dc                Font5x7
+ .rodata        0x000016bc      0x2e9 main.o
+                0x000016bc                InvaderImage
+                0x000017ac                DefenderImage
+                0x00001824                MissileImage
+                0x00001874                ExplosionImage
+
+.glue_7         0x000019a8        0x0
+ .glue_7        0x000019a8        0x0 linker stubs
+
+.glue_7t        0x000019a8        0x0
+ .glue_7t       0x000019a8        0x0 linker stubs
+
+.vfp11_veneer   0x000019a8        0x0
+ .vfp11_veneer  0x000019a8        0x0 linker stubs
+
+.v4_bx          0x000019a8        0x0
+ .v4_bx         0x000019a8        0x0 linker stubs
+
+.iplt           0x000019a8        0x0
+ .iplt          0x000019a8        0x0 init.o
+
+.rel.dyn        0x000019a8        0x0
+ .rel.iplt      0x000019a8        0x0 init.o
+                0x10000000                . = ORIGIN (ram)
+
+.data           0x10000000      0x100 load address 0x000019a5
+                0x000019a5                INIT_DATA_VALUES = LOADADDR (.data)
+                0x10000000                INIT_DATA_START = .
+ *(.data)
+ .data          0x10000000        0x0 init.o
+ .data          0x10000000        0x0 serial.o
+ .data          0x10000000        0x0 Pixel.o
+ .data          0x10000000        0x0 Sprite.o
+ .data          0x10000000        0x0 GameController.o
+ .data          0x10000000        0x0 spi.o
+ .data          0x10000000      0x100 main.o
+                0x10000000                Invaders
+                0x100000a0                Defender
+                0x100000b0                Missiles
+                0x10000100                INIT_DATA_END = .
+                0x10000100                BSS_START = .
+
+.igot.plt       0x10000100        0x0 load address 0x00001aa5
+ .igot.plt      0x10000100        0x0 init.o
+
+.bss            0x10000100      0x164 load address 0x00001aa5
+ *(.bss)
+ .bss           0x10000100        0x0 init.o
+ .bss           0x10000100        0x4 serial.o
+                0x10000100                TXBusy
+ .bss           0x10000104       0x46 Pixel.o
+ .bss           0x1000014a        0x0 Sprite.o
+ .bss           0x1000014a        0x2 GameController.o
+ .bss           0x1000014c        0x0 spi.o
+ .bss           0x1000014c        0x0 main.o
+ COMMON         0x1000014c      0x118 serial.o
+                0x1000014c                TXBuffer
+                0x100001d8                RXBuffer
+                0x10000264                BSS_END = .
+OUTPUT(main.elf elf32-littlearm)
+
+.debug_info     0x00000000      0xef4
+ .debug_info    0x00000000      0x117 init.o
+ .debug_info    0x00000117      0x286 serial.o
+ .debug_info    0x0000039d      0x3b7 Pixel.o
+ .debug_info    0x00000754      0x261 Sprite.o
+ .debug_info    0x000009b5       0xc8 GameController.o
+ .debug_info    0x00000a7d      0x190 spi.o
+ .debug_info    0x00000c0d      0x2e7 main.o
+
+.debug_abbrev   0x00000000      0x670
+ .debug_abbrev  0x00000000       0xdd init.o
+ .debug_abbrev  0x000000dd      0x15c serial.o
+ .debug_abbrev  0x00000239      0x10f Pixel.o
+ .debug_abbrev  0x00000348       0xed Sprite.o
+ .debug_abbrev  0x00000435       0x76 GameController.o
+ .debug_abbrev  0x000004ab       0xae spi.o
+ .debug_abbrev  0x00000559      0x117 main.o
+
+.debug_aranges  0x00000000       0xe0
+ .debug_aranges
+                0x00000000       0x20 init.o
+ .debug_aranges
+                0x00000020       0x20 serial.o
+ .debug_aranges
+                0x00000040       0x20 Pixel.o
+ .debug_aranges
+                0x00000060       0x20 Sprite.o
+ .debug_aranges
+                0x00000080       0x20 GameController.o
+ .debug_aranges
+                0x000000a0       0x20 spi.o
+ .debug_aranges
+                0x000000c0       0x20 main.o
+
+.debug_line     0x00000000      0x7f2
+ .debug_line    0x00000000       0x53 init.o
+ .debug_line    0x00000053       0xb3 serial.o
+ .debug_line    0x00000106      0x1c9 Pixel.o
+ .debug_line    0x000002cf      0x120 Sprite.o
+ .debug_line    0x000003ef       0xfb GameController.o
+ .debug_line    0x000004ea      0x15a spi.o
+ .debug_line    0x00000644      0x1ae main.o
+
+.debug_str      0x00000000      0x52f
+ .debug_str     0x00000000      0x11c init.o
+                                0x12e (size before relaxing)
+ .debug_str     0x0000011c       0xc4 serial.o
+                                0x188 (size before relaxing)
+ .debug_str     0x000001e0      0x133 Pixel.o
+                                0x245 (size before relaxing)
+ .debug_str     0x00000313       0x8e Sprite.o
+                                0x1dc (size before relaxing)
+ .debug_str     0x000003a1       0x65 GameController.o
+                                0x181 (size before relaxing)
+ .debug_str     0x00000406       0x64 spi.o
+                                0x19b (size before relaxing)
+ .debug_str     0x0000046a       0xc5 main.o
+                                0x252 (size before relaxing)
+
+.comment        0x00000000       0x6e
+ .comment       0x00000000       0x6e init.o
+                                 0x6f (size before relaxing)
+ .comment       0x0000006e       0x6f serial.o
+ .comment       0x0000006e       0x6f Pixel.o
+ .comment       0x0000006e       0x6f Sprite.o
+ .comment       0x0000006e       0x6f GameController.o
+ .comment       0x0000006e       0x6f spi.o
+ .comment       0x0000006e       0x6f main.o
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x31 init.o
+ .ARM.attributes
+                0x00000031       0x31 serial.o
+ .ARM.attributes
+                0x00000062       0x31 Pixel.o
+ .ARM.attributes
+                0x00000093       0x31 Sprite.o
+ .ARM.attributes
+                0x000000c4       0x31 GameController.o
+ .ARM.attributes
+                0x000000f5       0x31 spi.o
+ .ARM.attributes
+                0x00000126       0x31 main.o
+
+.debug_frame    0x00000000      0x5ac
+ .debug_frame   0x00000000       0x68 init.o
+ .debug_frame   0x00000068      0x17c serial.o
+ .debug_frame   0x000001e4      0x190 Pixel.o
+ .debug_frame   0x00000374       0xd0 Sprite.o
+ .debug_frame   0x00000444       0x4c GameController.o
+ .debug_frame   0x00000490       0x90 spi.o
+ .debug_frame   0x00000520       0x8c main.o
+
+Cross Reference Table
+
+Symbol                                            File
+BSS_END                                           init.o
+BSS_START                                         init.o
+CommandMode                                       Pixel.o
+DataMode                                          Pixel.o
+Default_Handler                                   init.o
+Defender                                          main.o
+DefenderImage                                     main.o
+Explode                                           main.o
+ExplosionImage                                    main.o
+Font5x7                                           Pixel.o
+HexDigit                                          serial.o
+INIT_DATA_END                                     init.o
+INIT_DATA_START                                   init.o
+INIT_DATA_VALUES                                  init.o
+InvaderImage                                      main.o
+Invaders                                          main.o
+LCD_Write_Cmd                                     Pixel.o
+LCD_Write_Data                                    Pixel.o
+MissileImage                                      main.o
+Missiles                                          main.o
+RXBuffer                                          serial.o
+TXBuffer                                          serial.o
+TXBusy                                            serial.o
+UART_isr                                          serial.o
+                                                  init.o
+Vectors                                           init.o
+blinky                                            main.o
+clock_init                                        init.o
+delay                                             main.o
+delay_ms                                          Pixel.o
+drainTX                                           serial.o
+drawSprite                                        Sprite.o
+egetc                                             serial.o
+eputc                                             serial.o
+fillRectangle                                     Pixel.o
+                                                  main.o
+                                                  Sprite.o
+getBuf                                            serial.o
+gotoXY                                            Pixel.o
+hideSprite                                        Sprite.o
+                                                  main.o
+init                                              init.o
+initDisplay                                       Pixel.o
+                                                  main.o
+initGameController                                GameController.o
+                                                  main.o
+initSPI                                           spi.o
+                                                  Pixel.o
+initSprite                                        Sprite.o
+initUART                                          serial.o
+                                                  main.o
+main                                              main.o
+                                                  init.o
+moveSprite                                        Sprite.o
+                                                  main.o
+printInteger                                      serial.o
+printString                                       serial.o
+                                                  main.o
+putBuf                                            serial.o
+putImage                                          Pixel.o
+                                                  Sprite.o
+putPixel                                          Pixel.o
+putText                                           Pixel.o
+                                                  main.o
+readGameController                                GameController.o
+                                                  main.o
+resetDisplay                                      Pixel.o
+rx_count                                          serial.o
+showSprite                                        Sprite.o
+                                                  main.o
+transferMultiSPI                                  spi.o
+transferRawSPI                                    spi.o
+                                                  Pixel.o
+transferSPI                                       spi.o
+tx_count                                          serial.o
+withinSprite                                      Sprite.o
+                                                  main.o
