@@ -24,7 +24,7 @@ LOAD main.o
 LOAD /usr/local/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/5.3.1/armv6-m/libgcc.a
                 0x00000000                . = ORIGIN (flash)
 
-.text           0x00000000     0x14dc
+.text           0x00000000     0x13d8
  *(.vectors)
  .vectors       0x00000000       0xc0 init.o
                 0x00000000                Vectors
@@ -69,47 +69,45 @@ LOAD /usr/local/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/5.3.1/armv6-m/libgcc.a
  .text          0x00000be4       0xb4 GameController.o
                 0x00000be4                initGameController
                 0x00000c1c                readGameController
- .text          0x00000c98      0x26c spi.o
+ .text          0x00000c98      0x168 spi.o
                 0x00000c98                initSPI
                 0x00000dc8                transferSPI
-                0x00000e00                transferMultiSPI
-                0x00000e9c                transferRawSPI
- .text          0x00000f04      0x5d8 main.o
-                0x00000f04                delay
-                0x00000f20                Explode
-                0x00000f9c                blinky
-                0x00000ff4                main
+ .text          0x00000e00      0x5d8 main.o
+                0x00000e00                delay
+                0x00000e1c                Explode
+                0x00000e98                blinky
+                0x00000ef0                main
 
-.rodata         0x000014dc      0x4c9
- .rodata        0x000014dc      0x1e0 Pixel.o
-                0x000014dc                Font5x7
- .rodata        0x000016bc      0x2e9 main.o
-                0x000016bc                InvaderImage
-                0x000017ac                DefenderImage
-                0x00001824                MissileImage
-                0x00001874                ExplosionImage
+.rodata         0x000013d8      0x4c9
+ .rodata        0x000013d8      0x1e0 Pixel.o
+                0x000013d8                Font5x7
+ .rodata        0x000015b8      0x2e9 main.o
+                0x000015b8                InvaderImage
+                0x000016a8                DefenderImage
+                0x00001720                MissileImage
+                0x00001770                ExplosionImage
 
-.glue_7         0x000019a8        0x0
- .glue_7        0x000019a8        0x0 linker stubs
+.glue_7         0x000018a4        0x0
+ .glue_7        0x000018a4        0x0 linker stubs
 
-.glue_7t        0x000019a8        0x0
- .glue_7t       0x000019a8        0x0 linker stubs
+.glue_7t        0x000018a4        0x0
+ .glue_7t       0x000018a4        0x0 linker stubs
 
-.vfp11_veneer   0x000019a8        0x0
- .vfp11_veneer  0x000019a8        0x0 linker stubs
+.vfp11_veneer   0x000018a4        0x0
+ .vfp11_veneer  0x000018a4        0x0 linker stubs
 
-.v4_bx          0x000019a8        0x0
- .v4_bx         0x000019a8        0x0 linker stubs
+.v4_bx          0x000018a4        0x0
+ .v4_bx         0x000018a4        0x0 linker stubs
 
-.iplt           0x000019a8        0x0
- .iplt          0x000019a8        0x0 init.o
+.iplt           0x000018a4        0x0
+ .iplt          0x000018a4        0x0 init.o
 
-.rel.dyn        0x000019a8        0x0
- .rel.iplt      0x000019a8        0x0 init.o
+.rel.dyn        0x000018a4        0x0
+ .rel.iplt      0x000018a4        0x0 init.o
                 0x10000000                . = ORIGIN (ram)
 
-.data           0x10000000      0x100 load address 0x000019a5
-                0x000019a5                INIT_DATA_VALUES = LOADADDR (.data)
+.data           0x10000000      0x100 load address 0x000018a1
+                0x000018a1                INIT_DATA_VALUES = LOADADDR (.data)
                 0x10000000                INIT_DATA_START = .
  *(.data)
  .data          0x10000000        0x0 init.o
@@ -125,10 +123,10 @@ LOAD /usr/local/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/5.3.1/armv6-m/libgcc.a
                 0x10000100                INIT_DATA_END = .
                 0x10000100                BSS_START = .
 
-.igot.plt       0x10000100        0x0 load address 0x00001aa5
+.igot.plt       0x10000100        0x0 load address 0x000019a1
  .igot.plt      0x10000100        0x0 init.o
 
-.bss            0x10000100      0x164 load address 0x00001aa5
+.bss            0x10000100      0x164 load address 0x000019a1
  *(.bss)
  .bss           0x10000100        0x0 init.o
  .bss           0x10000100        0x4 serial.o
@@ -144,23 +142,23 @@ LOAD /usr/local/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/5.3.1/armv6-m/libgcc.a
                 0x10000264                BSS_END = .
 OUTPUT(main.elf elf32-littlearm)
 
-.debug_info     0x00000000      0xef4
+.debug_info     0x00000000      0xe58
  .debug_info    0x00000000      0x117 init.o
  .debug_info    0x00000117      0x286 serial.o
  .debug_info    0x0000039d      0x3b7 Pixel.o
  .debug_info    0x00000754      0x261 Sprite.o
  .debug_info    0x000009b5       0xc8 GameController.o
- .debug_info    0x00000a7d      0x190 spi.o
- .debug_info    0x00000c0d      0x2e7 main.o
+ .debug_info    0x00000a7d       0xf4 spi.o
+ .debug_info    0x00000b71      0x2e7 main.o
 
-.debug_abbrev   0x00000000      0x670
+.debug_abbrev   0x00000000      0x64b
  .debug_abbrev  0x00000000       0xdd init.o
  .debug_abbrev  0x000000dd      0x15c serial.o
  .debug_abbrev  0x00000239      0x10f Pixel.o
  .debug_abbrev  0x00000348       0xed Sprite.o
  .debug_abbrev  0x00000435       0x76 GameController.o
- .debug_abbrev  0x000004ab       0xae spi.o
- .debug_abbrev  0x00000559      0x117 main.o
+ .debug_abbrev  0x000004ab       0x89 spi.o
+ .debug_abbrev  0x00000534      0x117 main.o
 
 .debug_aranges  0x00000000       0xe0
  .debug_aranges
@@ -178,16 +176,16 @@ OUTPUT(main.elf elf32-littlearm)
  .debug_aranges
                 0x000000c0       0x20 main.o
 
-.debug_line     0x00000000      0x7f2
+.debug_line     0x00000000      0x7ab
  .debug_line    0x00000000       0x53 init.o
  .debug_line    0x00000053       0xb3 serial.o
  .debug_line    0x00000106      0x1c9 Pixel.o
  .debug_line    0x000002cf      0x120 Sprite.o
  .debug_line    0x000003ef       0xfb GameController.o
- .debug_line    0x000004ea      0x15a spi.o
- .debug_line    0x00000644      0x1ae main.o
+ .debug_line    0x000004ea      0x113 spi.o
+ .debug_line    0x000005fd      0x1ae main.o
 
-.debug_str      0x00000000      0x52f
+.debug_str      0x00000000      0x501
  .debug_str     0x00000000      0x11c init.o
                                 0x12e (size before relaxing)
  .debug_str     0x0000011c       0xc4 serial.o
@@ -198,9 +196,9 @@ OUTPUT(main.elf elf32-littlearm)
                                 0x1dc (size before relaxing)
  .debug_str     0x000003a1       0x65 GameController.o
                                 0x181 (size before relaxing)
- .debug_str     0x00000406       0x64 spi.o
-                                0x19b (size before relaxing)
- .debug_str     0x0000046a       0xc5 main.o
+ .debug_str     0x00000406       0x36 spi.o
+                                0x161 (size before relaxing)
+ .debug_str     0x0000043c       0xc5 main.o
                                 0x252 (size before relaxing)
 
 .comment        0x00000000       0x6e
@@ -230,14 +228,14 @@ OUTPUT(main.elf elf32-littlearm)
  .ARM.attributes
                 0x00000126       0x31 main.o
 
-.debug_frame    0x00000000      0x5ac
+.debug_frame    0x00000000      0x56c
  .debug_frame   0x00000000       0x68 init.o
  .debug_frame   0x00000068      0x17c serial.o
  .debug_frame   0x000001e4      0x190 Pixel.o
  .debug_frame   0x00000374       0xd0 Sprite.o
  .debug_frame   0x00000444       0x4c GameController.o
- .debug_frame   0x00000490       0x90 spi.o
- .debug_frame   0x00000520       0x8c main.o
+ .debug_frame   0x00000490       0x50 spi.o
+ .debug_frame   0x000004e0       0x8c main.o
 
 Cross Reference Table
 
@@ -312,10 +310,8 @@ resetDisplay                                      Pixel.o
 rx_count                                          serial.o
 showSprite                                        Sprite.o
                                                   main.o
-transferMultiSPI                                  spi.o
-transferRawSPI                                    spi.o
-                                                  Pixel.o
 transferSPI                                       spi.o
+                                                  Pixel.o
 tx_count                                          serial.o
 withinSprite                                      Sprite.o
                                                   main.o

@@ -28,12 +28,12 @@ void DataMode()
 void LCD_Write_Cmd(uint8_t cmd)
 {
     CommandMode();
-    transferRawSPI(cmd);
+    transferSPI(cmd);
 }
 void LCD_Write_Data(uint8_t data)
 {
     DataMode();
-    transferRawSPI(data);
+    transferSPI(data);
 }
 void gotoXY(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 {   // open up an area for drawing on the display
@@ -143,8 +143,7 @@ void fillRectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint
             LCD_Write_Data(Colour & 0xff);
         }
 }
-#define FONT_WIDTH 5
-#define FONT_HEIGHT 7
+
 static uint16_t TextBox[FONT_WIDTH*FONT_HEIGHT];
 // Assuming font starts at ASCII character 32 (a space) and ends at 127
 void putText(const char *Text, uint16_t len, uint16_t x, uint16_t y, uint16_t ForeColour, uint16_t BackColour)
@@ -154,8 +153,7 @@ void putText(const char *Text, uint16_t len, uint16_t x, uint16_t y, uint16_t Fo
     const uint8_t *CharacterCode = 0;
     
     for (Index = 0; Index < len; Index++)
-    {
-        
+    {        
         CharacterCode = &Font5x7[FONT_WIDTH*(Text[Index]-32)]; 
         Col=0;
         while (Col < FONT_WIDTH)
@@ -176,8 +174,6 @@ void putText(const char *Text, uint16_t len, uint16_t x, uint16_t y, uint16_t Fo
             Col++;
         }
         putImage(x,y,FONT_WIDTH,FONT_HEIGHT,(const uint16_t *)TextBox);
-        x = x + FONT_HEIGHT + 2;
-        
-        
+        x = x + FONT_HEIGHT + 2;                
     }
 }

@@ -17,6 +17,8 @@
 #ifndef FONT5X7_H
 #define FONT5X7_H
 #include <stdint.h>
+#define FONT_WIDTH 5
+#define FONT_HEIGHT 7
 // standard ascii 5x7 font
 // defines ascii characters 0x20-0x7F (32-127)
 const uint8_t Font5x7[] = {

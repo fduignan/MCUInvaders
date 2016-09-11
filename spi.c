@@ -57,32 +57,3 @@ uint8_t transferSPI(uint8_t data)
     while (((SSP0SR & BIT4)!=0));
     return SSP0DR;
 }
-uint8_t transferMultiSPI(uint8_t *data, uint8_t Count)
-{
-    unsigned Timeout = 1000000;
-    int ReturnValue;
-	GPIO0DATA &= ~BIT2;
-    while (((SSP0SR & BIT4)!=0)&&(Timeout--));
-    while(Count--)
-    {
-		SSP0DR = *data;
-		Timeout = 1000000;
-		while (((SSP0SR & BIT4)!=0)&&(Timeout--));        
-		data++;
-	}
-	ReturnValue = SSP0DR;
-	GPIO0DATA |= BIT2;
-    return ReturnValue;
-}
-
-uint8_t transferRawSPI(uint8_t data)
-{
-    unsigned Timeout = 1000000;
-    int ReturnValue;	
-    while (((SSP0SR & BIT4)!=0)&&(Timeout--));
-    SSP0DR = data;
-    Timeout = 1000000;
-    while (((SSP0SR & BIT4)!=0)&&(Timeout--));        
-	ReturnValue = SSP0DR;	
-    return ReturnValue;
-}

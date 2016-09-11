@@ -179,18 +179,16 @@ int main()
     uint16_t ControllerState;
     initUART();    
     printString("MCU Invaders!");
-    initDisplay();    
-    
-    
+    initDisplay();            
     initGameController();
     putText("MCU INVADERS", 12, 10, 40, RGBToWord(0xff,0xff,0xff), RGBToWord(0,0,0));
     delay(10000000);
     fillRectangle(0,0,240,320,0);
-    // Show the defender
-    showSprite(&Defender);
+  
     while (!GameOver)    
     {
-       
+         // Show the defender
+        showSprite(&Defender);
         ControllerState = readGameController();
         if (ControllerState & BIT0)
         {

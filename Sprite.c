@@ -5,7 +5,7 @@
 void initSprite(Sprite * sp,const uint16_t * InitArray, uint8_t Width, uint8_t Height, uint16_t x, uint16_t y)
 {
 
-    // Construction based on 2 D pixel array    
+    // Construction based on a 1 D pixel array    
     sp->x = x;
     sp->y = y;
     sp->width = Width;
@@ -63,4 +63,3 @@ uint8_t withinSprite(Sprite * sp,uint16_t x, uint16_t y)
     else
         return 0;
 }
-
